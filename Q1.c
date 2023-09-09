@@ -22,7 +22,7 @@ int packetsCaptured = 0;
 
 
 
-struct Flow {
+struct Packet {
     char source_ip[INET_ADDRSTRLEN];      // Character array to store source IP
     char destination_ip[INET_ADDRSTRLEN]; // Character array to store destination IP
     int source_port;
@@ -32,7 +32,7 @@ struct Flow {
     int length;
 };
 
-struct Flow BufferFlow[16000];
+struct Packet BufferFlow[16000];
 
 
 

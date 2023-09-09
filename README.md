@@ -1,6 +1,6 @@
 # CN_Assignment1
 
-## Group Members
+### Group Members
 
-### Gali Sunny - 20110067
-### Balu KArthik Ram - 20110036
+#### Gali Sunny - 20110067
+#### Balu Karthik Ram - 20110036

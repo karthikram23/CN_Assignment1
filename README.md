@@ -12,6 +12,13 @@ There are two source code files for this assignment:
 1. **Q1.c**: This program sniffs network packets and extracts necessary information from them.
 2. **Q3.c**: The program sniffs packets and finds the PID of the client application linked to the port.
 
+## Pcap Files
+
+The following pcap files are used for the respective questions:
+
+- **For Question 1 (Q1.c):** `0.pcap`
+- **For Question 3 (Q3.c):** `3.pcap`
+
 ## Q1
 
 **Brief on Q1.c:**

@@ -87,6 +87,103 @@ void process_packet(unsigned char* buffer, int size) {
 };
 
 
+void findstringindata(char * tofind, FILE * fd){
+    
+    for (int i = 0 ; i < packetsCaptured ; i++){
+        for (int j = 0; j < BufferFlow[i].length ; j++){
+            if (BufferFlow[i].data[j]=='\0'){
+                BufferFlow[i].data[j] = ' '; 
+            }
+        };
+
+        if (strstr(BufferFlow[i].data,tofind) != NULL ){
+            fprintf(fd,"%s \n",BufferFlow[i].data);
+        };
+
+    }
+
+};
+
+
+
+
+void Q2_3(FILE * fd){
+     fprintf(fd,"********(III)**********");
+    char * source_ip ;
+    char *  destination_ip;
+    char * check_sum = "18084";
+    int  source_port , destination_port ; 
+    for (int i = 0 ; i < packetsCaptured ; i ++){
+        if (strcmp(BufferFlow[i].tcp_check_sum,check_sum)==0){
+             source_ip = BufferFlow[i].source_ip ; 
+             destination_ip = BufferFlow[i].destination_ip;
+             source_port = BufferFlow[i].source_port;
+             destination_port = BufferFlow[i].destination_port;        
+             break;
+        }
+    };
+    printf("%s",source_ip);
+    printf("%s",destination_ip);
+    printf("%d",source_port);
+    printf("%d",destination_port);
+    for (int i = 0 ; i  <  packetsCaptured ; i ++){
+        if ((strcmp(BufferFlow[i].source_ip,source_ip)== 0 &&
+             strcmp(BufferFlow[i].destination_ip,destination_ip) == 0 &&
+              BufferFlow[i].source_port == source_port &&
+              BufferFlow[i].destination_port == destination_port) || (strcmp(BufferFlow[i].source_ip,destination_ip)== 0 &&
+             strcmp(BufferFlow[i].destination_ip,source_ip) == 0 &&
+              BufferFlow[i].source_port == destination_port &&
+              BufferFlow[i].destination_port == source_port)){    
+            fprintf(fd,"%s \n", BufferFlow[i].data);
+        }
+    }
+
+}
+
+void Q2_4(FILE * fd){
+    fprintf(fd,"********(IV)**********\n");
+    char * ip = "131.144.126.118" ;
+    int source_port , destination_port ; 
+    for (int i = 0 ; i < packetsCaptured ; i ++){
+        if (strcmp(BufferFlow[i].source_ip,ip) == 0){
+             source_port = BufferFlow[i].source_port;
+             destination_port = BufferFlow[i].destination_port;
+             break;
+        }
+    };
+    int sumport = source_port+destination_port;
+    for (int i  = 0 ; i  <  packetsCaptured ; i++){
+        if (BufferFlow[i].source_port==sumport || BufferFlow[i].destination_port == sumport){
+            fprintf(fd,"%s \n", BufferFlow[i].data);
+        };
+    };
+
+};
+
+
+
+void Q2(){
+    FILE* fd = fopen("Q2.txt", "w");
+    char * q1 = "Flag:";
+    fprintf(fd,"******(i)********\n");
+    findstringindata(q1,fd);
+
+    fprintf(fd,"******(ii)********\n");
+    char * q2 = "username=secret";
+    findstringindata(q2,fd);
+
+    Q2_3(fd);
+
+    Q2_4(fd);
+
+    fprintf(fd,"**********(V)***********\n");
+    char * q5 = "milkshake";
+    findstringindata(q5,fd);
+
+
+    fclose(fd);
+
+}
 void signalhandler() {
     
     printf("No of packetsCaptured : %d \n", packetsCaptured);
@@ -174,6 +271,7 @@ void signalhandler() {
 
     printf("No of Flows : %d \n", noofflows);
     fclose(fd_combinations);
+    Q2();
     exit(0);
 }
 

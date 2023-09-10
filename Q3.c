@@ -17,18 +17,18 @@
 #include <time.h>
 
 #define BufferSize 10000
-#define MAX_IP_LENGTH 16
+
 char *IP;
 
 
 int packetsCaptured = 0;
-int distinctflows = 0;
+
 
 //arrary to map port to pid
 int portToPid[65536];
 
 
-struct Packet {
+struct packet {
     char source_ip[INET_ADDRSTRLEN];      // Character array to store source IP
     char destination_ip[INET_ADDRSTRLEN]; // Character array to store destination IP
     int source_port;
@@ -40,7 +40,7 @@ struct Packet {
 };
 
 
-struct Packet BufferFlow[16000];
+struct packet BufferFlow[16000];
 int getipaddress() {
     
     char buffer[256];
@@ -55,7 +55,7 @@ int getipaddress() {
 
     while (fgets(buffer, sizeof(buffer), fp) != NULL) {
         if ((token = strstr(buffer, "inet ")) != NULL) {
-            IP = strtok(token + 5, " "); // Extract the IP address
+            IP = strdup(strtok(token + 5, " ")); // Extract the IP address
             break;
         }
     }
@@ -68,7 +68,6 @@ int getipaddress() {
         return -1;
     };
 
-    // Close the command output
     pclose(fp);
 
     return 0;
@@ -107,7 +106,7 @@ int getpidofport(int port) {
 
 
 void process_packet(unsigned char* buffer, int size) {
-    printf("Received %d bytes\n", size);
+   // printf("Received %d bytes\n", size);
 
     struct iphdr* iph = (struct iphdr*)(buffer + sizeof(struct ethhdr));
 
@@ -142,13 +141,19 @@ void process_packet(unsigned char* buffer, int size) {
     };
        
    //code to get the pid of the packet and store it in the array
+    int port;
 
-    int port = ntohs(tcph->dest);
+
+    //printf("%s",typeof(inet_ntoa(src_ip)));
+
+   printf("********************************************\n");
     if (strcmp(inet_ntoa(src_ip),IP) == 0){
         port = ntohs(tcph->source);
+        printf("sending\n");
     };
     if (strcmp(inet_ntoa(dest_ip),IP) == 0){
         port = ntohs(tcph->dest);
+        printf("receiving\n");
     };
     //printf("port : %d\n",port);
     portToPid[port] =    getpidofport(port);
@@ -163,7 +168,7 @@ void process_packet(unsigned char* buffer, int size) {
     BufferFlow[packetsCaptured - 1].destination_port = ntohs(tcph->dest);
     
  // printing sone necessary informationof captured packet
-    printf("********************************************\n");
+   
     printf("Source IP: %s\n", inet_ntoa(src_ip));
     printf("Destination IP: %s\n", inet_ntoa(dest_ip));
     printf("Source Port: %d\n", ntohs(tcph->source));
@@ -173,12 +178,12 @@ void process_packet(unsigned char* buffer, int size) {
 
 
 void signalhandler() {
-    //printf("No of distinctflows : %d \n", distinctflows);
+  
     printf("No of packetsCaptured : %d \n", packetsCaptured);
 
     // Create a file to store packet information for each combination
     printf("storing flows in a file");
-    FILE* fd_combinations = fopen("flows.txt", "w");
+    FILE* fd_combinations = fopen("flowsInfo.txt", "w");
     if (fd_combinations == NULL) {
         perror("File open error");
         return;
@@ -248,6 +253,7 @@ void signalhandler() {
 int main() {
     signal(SIGINT, signalhandler);
     int x  = getipaddress();
+    printf("%s",IP);
     if (x  == -1){
         printf("error in getting ipaddress");
         return 1;
@@ -266,7 +272,7 @@ int main() {
     struct sockaddr socketaddress;
     while (1) {
         time_t start_time = time(NULL);
-        while (time(NULL)-start_time <= 10){
+        while (time(NULL)-start_time <= 30){
                 int saddr_size = sizeof(socketaddress);
                 int data_size = recvfrom(sock_raw, buffer, BufferSize, MSG_DONTWAIT , &socketaddress, (socklen_t*)&saddr_size);
                 
@@ -277,6 +283,7 @@ int main() {
                
         }
         int port;
+        printf("----------------------------------------------------------------------------\n");
         printf("enter the port number\n");
         scanf("%d",&port);
         int pid  = portToPid[port];
@@ -286,6 +293,7 @@ int main() {
             printf("pid of the process  on this port is %d \n",pid);
         };       
         sleep(10);
+        printf("------------------------------------------------------------------------------\n");
     };
     return 0;
 }

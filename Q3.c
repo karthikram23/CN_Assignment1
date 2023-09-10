@@ -292,7 +292,7 @@ int main() {
         }else{
             printf("pid of the process  on this port is %d \n",pid);
         };       
-        sleep(10);
+        //sleep(10);
         printf("------------------------------------------------------------------------------\n");
     };
     return 0;

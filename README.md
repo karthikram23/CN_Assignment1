@@ -31,11 +31,12 @@ This program sniffs network packets and extracts the necessary information from 
 
 **Output:**
 The TCP flow information will be stored in `flow.txt`.
+The required information for the Q2 will be stored in Q2.txt
 
 ## Q3
 
 **Brief on Q3:**
-The program sniffs packets and finds the PID of the client application linked to the port. Every 30 seconds, it prompts the user to enter the port, and the program outputs the PID linking the port.
+The program sniffs packets and finds the PID of the client application linked to the port. After 30 seconds, it  will prompts the user to enter the port, and the program outputs the PID linking the port, the program will prompt the user until the program terminated by user.
 
 **Executing Q3.c:**
 1. Compilation: `gcc Q3.c -o Q3`

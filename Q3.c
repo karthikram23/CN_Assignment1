@@ -270,7 +270,7 @@ int main() {
     }
 
     struct sockaddr socketaddress;
-    while (1) {
+    
         time_t start_time = time(NULL);
         while (time(NULL)-start_time <= 30){
                 int saddr_size = sizeof(socketaddress);
@@ -282,6 +282,7 @@ int main() {
                  };
                
         }
+        while (1) {
         int port;
         printf("----------------------------------------------------------------------------\n");
         printf("enter the port number\n");
@@ -292,7 +293,7 @@ int main() {
         }else{
             printf("pid of the process  on this port is %d \n",pid);
         };       
-        //sleep(10);
+        //sleep(3);
         printf("------------------------------------------------------------------------------\n");
     };
     return 0;

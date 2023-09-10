@@ -16,13 +16,13 @@
 #include <signal.h>
 #include <time.h>
 
-#define BufferSize 10000
+#define BufferSize 65536
 
 int packetsCaptured = 0;
 
 
 
-struct Packet {
+struct packet {
     char source_ip[INET_ADDRSTRLEN];      // Character array to store source IP
     char destination_ip[INET_ADDRSTRLEN]; // Character array to store destination IP
     int source_port;
@@ -32,7 +32,7 @@ struct Packet {
     int length;
 };
 
-struct Packet BufferFlow[16000];
+struct packet BufferFlow[65536];
 
 
 
@@ -77,12 +77,13 @@ void process_packet(unsigned char* buffer, int size) {
     BufferFlow[packetsCaptured - 1].source_port = ntohs(tcph->source);
     BufferFlow[packetsCaptured - 1].destination_port = ntohs(tcph->dest);
     
-
+    printf("*********************************************\n");
     
     printf("Source IP: %s\n", inet_ntoa(src_ip));
     printf("Destination IP: %s\n", inet_ntoa(dest_ip));
     printf("Source Port: %d\n", ntohs(tcph->source));
     printf("Destination Port: %d\n", ntohs(tcph->dest));
+
 };
 
 
@@ -170,9 +171,8 @@ void signalhandler() {
             
         }
     }
-    //printing no of flows captured
+
     printf("No of Flows : %d \n", noofflows);
-    //closing the file 
     fclose(fd_combinations);
     exit(0);
 }

@@ -28,7 +28,7 @@ struct packet {
     int source_port;
     int destination_port;
     char tcp_check_sum[10];
-    unsigned char data[7000];
+    unsigned char data[10000];
     int length;
 };
 

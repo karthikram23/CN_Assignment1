@@ -108,20 +108,27 @@ void findstringindata(char * tofind, FILE * fd){
 
 
 void Q2_3(FILE * fd){
-     fprintf(fd,"********(III)**********");
+     fprintf(fd,"********(III)**********\n");
     char * source_ip ;
     char *  destination_ip;
     char * check_sum = "18084";
     int  source_port , destination_port ; 
+    printf("%d\n",sizeof(check_sum));
+    int find = 0 ;
+    
     for (int i = 0 ; i < packetsCaptured ; i ++){
         if (strcmp(BufferFlow[i].tcp_check_sum,check_sum)==0){
              source_ip = BufferFlow[i].source_ip ; 
              destination_ip = BufferFlow[i].destination_ip;
              source_port = BufferFlow[i].source_port;
-             destination_port = BufferFlow[i].destination_port;        
+             destination_port = BufferFlow[i].destination_port;      
+             find = 1 ;  
              break;
         }
     };
+    if (find  == 0){
+        return;
+    }
     printf("%s",source_ip);
     printf("%s",destination_ip);
     printf("%d",source_port);
@@ -144,13 +151,18 @@ void Q2_4(FILE * fd){
     fprintf(fd,"********(IV)**********\n");
     char * ip = "131.144.126.118" ;
     int source_port , destination_port ; 
+    int find = 0 ;
     for (int i = 0 ; i < packetsCaptured ; i ++){
         if (strcmp(BufferFlow[i].source_ip,ip) == 0){
              source_port = BufferFlow[i].source_port;
              destination_port = BufferFlow[i].destination_port;
+             find  = 1 ;
              break;
         }
     };
+    if (find  == 0){
+        return ;
+    }
     int sumport = source_port+destination_port;
     for (int i  = 0 ; i  <  packetsCaptured ; i++){
         if (BufferFlow[i].source_port==sumport || BufferFlow[i].destination_port == sumport){
@@ -173,6 +185,7 @@ void Q2(){
     findstringindata(q2,fd);
 
     Q2_3(fd);
+    //printf("**********3****");
 
     Q2_4(fd);
 

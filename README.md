@@ -31,7 +31,7 @@ This program sniffs network packets and extracts the necessary information from 
 
 **Output:**
 The TCP flow information will be stored in `flow.txt`.
-The required information for the Q2 will be stored in Q2.txt
+The required information for the Q2 will be stored in 'Q2.txt'.
 
 ## Q3
 

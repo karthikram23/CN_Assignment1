@@ -1,0 +1,88 @@
+******(i)********
+w+p        P  ‹Ã  Flag: Adam 
+******(ii)********
+©(5        P  ×å  POST /username=secret HTTP/1.1
+Connection: Secret: I can do this all day
+
+ 
+********(III)**********
+$K        P  F¤  GET /your-password-is-somewhere--in-this-stream HTTP/1.1
+
+ 
+$K       P    GET / HTTP/1.1
+Content-Type: HTML
+Origin: www.cs433.com
+
+ 
+$K       P    GET / HTTP/1.1
+Content-Type: HTML
+Origin: www.cs433.com
+
+ 
+$K       P    GET / HTTP/1.1
+Content-Type: HTML
+Origin: www.cs433.com
+
+ 
+$K       P    GET / HTTP/1.1
+Content-Type: HTML
+Origin: www.cs433.com
+
+ 
+$K       P    GET / HTTP/1.1
+Content-Type: HTML
+Origin: www.cs433.com
+
+ 
+$K       P    GET / HTTP/1.1
+Content-Type: HTML
+Origin: www.cs433.com
+
+ 
+$K       P    GET / HTTP/1.1
+Content-Type: HTML
+Origin: www.cs433.com
+
+ 
+$K       P  >°  GET / HTTP/1.1
+Content-Type: PASSWORD-Rio
+Origin: www.cs433.com
+
+ 
+$K   	    P  º=  GET / HTTP/1.1
+Origin: www.cs433.com
+
+ 
+$K   
+    P  º<  GET / HTTP/1.1
+Origin: www.cs433.com
+
+ 
+$K       P  º;  GET / HTTP/1.1
+Origin: www.cs433.com
+
+ 
+$K       P  º:  GET / HTTP/1.1
+Origin: www.cs433.com
+
+ 
+$K       P  º9  GET / HTTP/1.1
+Origin: www.cs433.com
+
+ 
+$K       P  º8  GET / HTTP/1.1
+Origin: www.cs433.com
+
+ 
+$K       P  º7  GET / HTTP/1.1
+Origin: www.cs433.com
+
+ 
+********(IV)**********
+ëM»        P  ú‰  The person you are looking for is John Keats 
+**********(V)***********
+ yêÔ        P  xU  GET /milkshake HTTP/1.1
+Content-Type: flavor- Pineapple
+Cookie: user:customer
+
+ 

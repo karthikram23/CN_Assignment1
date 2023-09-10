@@ -226,11 +226,18 @@ void signalhandler() {
         // Iterate through all captured packets
         int packetno = 1; 
         for (int j = i+1; j < packetsCaptured; j++) {
-            if (strcmp(BufferFlow[j].source_ip, src_ip) == 0 &&
+            if (!processedPackets[j]){
+
+            }
+            if ((strcmp(BufferFlow[j].source_ip, src_ip) == 0 &&
                 BufferFlow[j].source_port == src_port &&
                 strcmp(BufferFlow[j].destination_ip, dest_ip) == 0 &&
-                BufferFlow[j].destination_port == dest_port &&
-                !processedPackets[j]) {
+                BufferFlow[j].destination_port == dest_port ) || 
+                (strcmp(BufferFlow[j].source_ip, dest_ip) == 0 &&
+                BufferFlow[j].source_port == dest_port &&
+                strcmp(BufferFlow[j].destination_ip, src_ip) == 0 &&
+                BufferFlow[j].destination_port == src_port 
+               )) {
                 fprintf(fd_combinations, "Packet %d - TCP Check Sum: %s\n", packetno, BufferFlow[j].tcp_check_sum);
                  fprintf(fd_combinations, "        Data: ");
                     for (int k = 0 ; k < BufferFlow[i].length; k++){
